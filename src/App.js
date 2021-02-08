@@ -25,8 +25,6 @@ import Register from './pages/Register.jsx'
 import Login from './pages/Login.jsx';
 import TabsRoot from './components/TabsRoot.jsx'
 
-
-
 function App() {
   return (
     <IonApp className="app">

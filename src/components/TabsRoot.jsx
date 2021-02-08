@@ -30,7 +30,7 @@ const TabsRoot = () => {
           <IonTabBar slot="bottom">
             <IonTabButton tab="homepage" href='/homepage'>
               <IonIcon icon={home} />
-              <IonLabel>Schedule</IonLabel>
+              <IonLabel>Home</IonLabel>
               {/* <IonBadge>6</IonBadge> */}
             </IonTabButton>
             <IonTabButton tab="posts" href='/posts'>
