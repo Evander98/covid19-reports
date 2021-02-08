@@ -10,6 +10,7 @@ import {
   IonCardTitle,
   IonContent,
   IonHeader,
+  IonIcon,
   IonImg,
   IonInput,
   IonItem,
@@ -26,6 +27,8 @@ import ImgAdd from "../images/add.svg";
 import firebase, { storage } from "../supports/firebase";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { create, trash } from 'ionicons/icons';
+
 
 const MyPost = () => {
   const [getData, setGetData] = useState({});
@@ -261,8 +264,14 @@ const MyPost = () => {
                 <IonText>{getData[key].location}</IonText>
               </IonItem>
               <center className='ion-margin-top'>
-                <IonButton color='success' onClick={() => editHandler(getData[key])}>Edit</IonButton>
-                <IonButton color='danger' onClick={() => onDeleteClicked(getData[key])}>Delete</IonButton>
+                <IonButton color='danger' onClick={() => onDeleteClicked(getData[key])}>
+                  <IonIcon icon={trash} slot='start'/>
+                  Delete
+                </IonButton>
+                <IonButton color='warning' onClick={() => editHandler(getData[key])}>
+                  <IonIcon icon={create} slot="start"/>
+                  Edit
+                </IonButton>
               </center>
             </IonCardContent>
           </IonCard>
