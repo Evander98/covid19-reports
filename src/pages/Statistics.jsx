@@ -9,8 +9,9 @@ import { IonAlert } from '@ionic/react';
 const Statistics = () => {
   const user = useSelector((state) => state.userReducer);
   const [frequent, setFrequent] = useState([])
-  const [errorMsg, setErrorMsg] = useState()
   const [location, setLocation] = useState([])
+  const [generateColor, setGenerateColor] = useState([])
+  const [errorMsg, setErrorMsg] = useState()
 
   useEffect(() => {
     getAllPosts()
@@ -19,6 +20,7 @@ const Statistics = () => {
   const getAllPosts = () => {
     var tempLocation = []
     var tempData = []
+    var tempColor = []
     // var temp = 1
     firebase
     .database()
@@ -37,6 +39,11 @@ const Statistics = () => {
       // setLocation(oldLocation => [...oldLocation, res.val()[key].location])
       setLocation(tempLocation)
       setFrequent(tempData)
+      for(var i=0; i<tempData.length; i++){
+        var color = `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.2)`
+        tempColor.push(color)
+      }
+      setGenerateColor(tempColor)
     })
     .catch(() => {
       setErrorMsg("Server Error");
@@ -58,22 +65,8 @@ const Statistics = () => {
         datasets: [{
           label: "# of Victims",
           data: frequent,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
+          backgroundColor: generateColor,
+          borderColor: generateColor,
           borderWidth: 1
         }]
       }} width={400} height={600} options={{scales:{
