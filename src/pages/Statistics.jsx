@@ -53,7 +53,6 @@ const Statistics = () => {
         message={errorMsg}
         buttons={[{ text: "Okay", handler: () => setErrorMsg("") }]}
       />
-      <button >tes</button>
       <Bar data={{
         labels: location,
         datasets: [{
