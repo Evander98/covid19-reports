@@ -421,12 +421,13 @@ const MyPost = () => {
             <IonImg
               fill="#FFFFFF"
               style={{
-                position: "fixed",
+                backgroundColor: "#3880FF",
+                width: "55px",
                 borderRadius: "50%",
+                position: "fixed",
                 bottom: "55px",
                 right: "3vw",
-                width: "55px",
-                backgroundColor: "#3880FF",
+                zIndex: 99
               }}
               src={ImgAdd}
               onClick={() => setModal(!modal)}

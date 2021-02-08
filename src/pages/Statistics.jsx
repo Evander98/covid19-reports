@@ -8,55 +8,40 @@ import { IonAlert } from '@ionic/react';
 
 const Statistics = () => {
   const user = useSelector((state) => state.userReducer);
-  const [getData, setGetData] = useState({})
+  const [frequent, setFrequent] = useState([])
   const [errorMsg, setErrorMsg] = useState()
   const [location, setLocation] = useState([])
 
   useEffect(() => {
     getAllPosts()
-    // translateData()
   }, [])
 
   const getAllPosts = () => {
     var tempLocation = []
-    var temp = []
+    var tempData = []
+    // var temp = 1
     firebase
-      .database()
-      .ref(`reports/`)
-      .get()
-      .then((res) => {
-        setGetData(res.val());
-        Object.keys(res.val()).map((key, i) => {
+    .database()
+    .ref(`reports/`)
+    .get()
+    .then((res) => {
+      Object.keys(res.val()).map((key, i) => {
+        tempData.push(1)
+        if(tempLocation.includes(res.val()[key].location)){
+          tempData[tempLocation.indexOf(res.val()[key].location)] += 1
+          tempData.splice(i, 1)
+        }else{
           tempLocation.push(res.val()[key].location)
-        })
-        // setLocation(oldLocation => [...oldLocation, res.val()[key].location])
-        for(var i=0; i<1; i++){
-          for(var j=0; j<tempLocation.length; j++){
-            temp.push(tempLocation[j])
-            if(tempLocation[i+1] == tempLocation[j]){
-              temp.splice(j, 1)
-
-              console.log(tempLocation)
-            }else{
-            }
-          }
         }
-        setLocation(temp)
-        console.log(location)
       })
-      .catch(() => {
-        setErrorMsg("Server Error");
-      });
+      // setLocation(oldLocation => [...oldLocation, res.val()[key].location])
+      setLocation(tempLocation)
+      setFrequent(tempData)
+    })
+    .catch(() => {
+      setErrorMsg("Server Error");
+    });
   };
-
-  // const translateData = () => {
-  //   Object.keys(getData).map((key, i) => {
-  //     return setLocation(oldLocation => [...oldLocation, getData[key].location])
-  //   })
-  //   console.log(location)
-    
-  // }
-
 
   if(user.role !== "admin"){
     return <Redirect to='/login'/>
@@ -73,7 +58,7 @@ const Statistics = () => {
         labels: location,
         datasets: [{
           label: "# of Victims",
-          data: [12, 19, 3, 5, 2, 3],
+          data: frequent,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
