@@ -26,6 +26,7 @@ const Register = () => {
   const passwordRef = useRef();
 
   const user = useSelector((state) => state.userReducer);
+  const theme = useSelector(state => state.theme)
 
   const dispatch = useDispatch();
 
@@ -88,15 +89,15 @@ const Register = () => {
       />
       <IonApp>
         <IonHeader>
-          <IonToolbar color="primary">
+          <IonToolbar color={theme.darkMode ? "medium" : "primary"}>
             <IonTitle>Register</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent>
+        <IonContent color={theme.darkMode ? "dark" : ""}>
           <IonGrid className="ion-margin-top">
             <IonRow>
               <IonCol>
-                <IonItem>
+                <IonItem color={theme.darkMode ? "dark" : ""}>
                   <IonLabel position="floating">Full Name</IonLabel>
                   <IonInput type="text" ref={fullNameRef} />
                 </IonItem>
@@ -104,7 +105,7 @@ const Register = () => {
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonItem>
+                <IonItem color={theme.darkMode ? "dark" : ""}>
                   <IonLabel position="floating">Phone Number</IonLabel>
                   <IonInput type="number" ref={phoneRef} />
                 </IonItem>
@@ -112,7 +113,7 @@ const Register = () => {
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonItem>
+                <IonItem color={theme.darkMode ? "dark" : ""}>
                   <IonLabel position="floating">Password</IonLabel>
                   <IonInput type="password" ref={passwordRef} />
                 </IonItem>
@@ -124,6 +125,7 @@ const Register = () => {
                   className="ion-margin-top"
                   expand="block"
                   onClick={onRegisterClick}
+                  color={theme.darkMode ? "medium" : ""}
                 >
                   Register
                 </IonButton>

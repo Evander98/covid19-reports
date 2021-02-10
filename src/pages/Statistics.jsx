@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { Bar } from 'react-chartjs-2'
 import firebase from '../supports/firebase'
-import { IonAlert } from '@ionic/react';
+import { IonAlert, IonApp, IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/react';
 
 
 const Statistics = () => {
@@ -12,6 +12,8 @@ const Statistics = () => {
   const [location, setLocation] = useState([])
   const [generateColor, setGenerateColor] = useState([])
   const [errorMsg, setErrorMsg] = useState()
+
+  const theme = useSelector(state => state.theme)
 
   useEffect(() => {
     getAllPosts()
@@ -60,22 +62,33 @@ const Statistics = () => {
         message={errorMsg}
         buttons={[{ text: "Okay", handler: () => setErrorMsg("") }]}
       />
-      <Bar data={{
-        labels: location,
-        datasets: [{
-          label: "# of Victims",
-          data: frequent,
-          backgroundColor: generateColor,
-          borderColor: generateColor,
-          borderWidth: 1
-        }]
-      }} width={400} height={600} options={{scales:{
-        yAxes: [{
-          ticks:{
-            beginAtZero: true
-          }
-        }]
-      }}}/>
+      <IonApp>
+        <IonHeader>
+          <IonToolbar color={theme.darkMode ? "medium" : "primary"}>
+            <IonTitle>
+              Statistics
+            </IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent color={theme.darkMode ? "dark" : "light"}>
+          <Bar data={{
+            labels: location,
+            datasets: [{
+              label: "# of Victims",
+              data: frequent,
+              backgroundColor: generateColor,
+              borderColor: generateColor,
+              borderWidth: 1
+            }]
+          }} width={400} height={600} options={{scales:{
+            yAxes: [{
+              ticks:{
+                beginAtZero: true
+              }
+            }]
+          }}}/>
+        </IonContent>
+      </IonApp>
     </React.Fragment>
   )
 }

@@ -43,6 +43,7 @@ const MyPost = () => {
   const locationRef = useRef();
 
   const user = useSelector((state) => state.userReducer);
+  const theme = useSelector(state => state.theme)
 
   useEffect(() => {
     getMyPosts();
@@ -239,7 +240,7 @@ const MyPost = () => {
     var views = Object.keys(getData).map((key, i) => {
       if (getData[key].createdBy == user.phone) {
         return (
-          <IonCard>
+          <IonCard color={theme.darkMode ? "medium" : ""}>
             <center>
               <IonImg src={getData[key].imageUrl} style={{ width: "300px" }} />
             </center>
@@ -251,15 +252,15 @@ const MyPost = () => {
               <IonLabel>
                 Victim of Covid-19
               </IonLabel>
-              <IonItem>
+              <IonItem color={theme.darkMode ? "medium" : ""}>
                 <IonLabel slot='start'>Age</IonLabel>
                 <IonText>{getData[key].age}</IonText>
               </IonItem>
-              <IonItem>
+              <IonItem color={theme.darkMode ? "medium" : ""}>
                 <IonLabel slot='start'>Address</IonLabel>
                 <IonText>{getData[key].address}</IonText>
               </IonItem>
-              <IonItem>
+              <IonItem color={theme.darkMode ? "medium" : ""}>
                 <IonLabel slot='start'>Location</IonLabel>
                 <IonText>{getData[key].location}</IonText>
               </IonItem>
@@ -300,11 +301,11 @@ const MyPost = () => {
       />
       <IonApp>
         <IonHeader>
-          <IonToolbar color="primary">
+          <IonToolbar color={theme.darkMode ? "medium" : "primary"}>
             <IonTitle>My Posts</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent>
+        <IonContent color={theme.darkMode ? "dark" : "light"}>
           {renderData()}
 
           {/*-------------------------------------------------UPLOAD MODAL---------------------------------------------------------*/}
@@ -321,47 +322,49 @@ const MyPost = () => {
                 </IonText>
               </IonToolbar>
             </IonHeader>
-            <IonItem>
-              <IonLabel position="floating">Name</IonLabel>
-              <IonInput type="text" ref={nameRef} />
-            </IonItem>
-            <IonItem>
-              <IonLabel position="floating">Age</IonLabel>
-              <IonInput type="number" ref={ageRef} />
-            </IonItem>
-            <IonItem>
-              <IonLabel position="floating">Address</IonLabel>
-              <IonInput type="text" ref={addressRef} />
-            </IonItem>
-            <IonItem>
-              <input type="file" onChange={handleOnChange} />
-            </IonItem>
-            <IonItem>
-              <IonList>
-                <IonRadioGroup
-                  value={genderInput}
-                  onIonChange={(e) => setGenderInput(e.detail.value)}
-                >
-                  <IonLabel>Gender</IonLabel>
-                  <IonItem>
-                    <IonLabel>Male</IonLabel>
-                    <IonRadio slot="start" value="Male" />
-                  </IonItem>
-                  <IonItem>
-                    <IonLabel>Female</IonLabel>
-                    <IonRadio slot="start" value="Female" />
-                  </IonItem>
-                </IonRadioGroup>
-              </IonList>
-            </IonItem>
-            <IonItem>
-              <IonLabel position="floating">Location</IonLabel>
-              <IonInput type="text" ref={locationRef}/>
-            </IonItem>
-            <center className="ion-margin">
-              <IonButton color='danger' block onClick={() => setModal(!modal)}>Cancel</IonButton>
-              <IonButton block onClick={handleUpload}>Save</IonButton>
-            </center>
+            <IonContent>
+              <IonItem>
+                <IonLabel position="floating">Name</IonLabel>
+                <IonInput type="text" ref={nameRef} />
+              </IonItem>
+              <IonItem>
+                <IonLabel position="floating">Age</IonLabel>
+                <IonInput type="number" ref={ageRef} />
+              </IonItem>
+              <IonItem>
+                <IonLabel position="floating">Address</IonLabel>
+                <IonInput type="text" ref={addressRef} />
+              </IonItem>
+              <IonItem>
+                <input type="file" onChange={handleOnChange} />
+              </IonItem>
+              <IonItem>
+                <IonList>
+                  <IonRadioGroup
+                    value={genderInput}
+                    onIonChange={(e) => setGenderInput(e.detail.value)}
+                  >
+                    <IonLabel >Gender</IonLabel>
+                    <IonItem>
+                      <IonLabel>Male</IonLabel>
+                      <IonRadio slot="start" value="Male" />
+                    </IonItem>
+                    <IonItem>
+                      <IonLabel>Female</IonLabel>
+                      <IonRadio slot="start" value="Female" />
+                    </IonItem>
+                  </IonRadioGroup>
+                </IonList>
+              </IonItem>
+              <IonItem>
+                <IonLabel position="floating">Location</IonLabel>
+                <IonInput type="text" ref={locationRef}/>
+              </IonItem>
+              <center className="ion-margin">
+                <IonButton color='danger' block onClick={() => setModal(!modal)}>Cancel</IonButton>
+                <IonButton block onClick={handleUpload}>Save</IonButton>
+              </center>
+            </IonContent>
           </IonModal>
           {/*----------------------------------------------END OF UPLOAD MODAL------------------------------------------------*/}
 
@@ -430,7 +433,7 @@ const MyPost = () => {
             <IonImg
               fill="#FFFFFF"
               style={{
-                backgroundColor: "#3880FF",
+                backgroundColor: theme.darkMode ? "#3dc2ff" : "#3880FF",
                 width: "55px",
                 borderRadius: "50%",
                 position: "fixed",

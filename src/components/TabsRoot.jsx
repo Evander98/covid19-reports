@@ -12,6 +12,7 @@ import Statistics from '../pages/Statistics'
 
 const TabsRoot = () => {
   const user = useSelector(state => state.userReducer)
+  const theme = useSelector(state => state.theme)
   if(user.phone == ""){
     return <Redirect to='/login'/>
   }
@@ -27,7 +28,7 @@ const TabsRoot = () => {
             <Route path='/statistics' component={Statistics} exact/>
             
           </IonRouterOutlet>
-          <IonTabBar slot="bottom">
+          <IonTabBar slot="bottom" color={theme.darkMode ? "dark" : ""}>
             <IonTabButton tab="homepage" href='/homepage'>
               <IonIcon icon={home} />
               <IonLabel>Home</IonLabel>

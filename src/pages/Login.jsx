@@ -24,6 +24,7 @@ const Login = () => {
   const phoneRef = useRef();
   const passwordRef = useRef();
   const user = useSelector((state) => state.userReducer);
+  const theme = useSelector(state => state.theme)
   const dispatch = useDispatch();
 
   const onLoginClick = () => {
@@ -75,15 +76,15 @@ const Login = () => {
       />
       <IonApp>
         <IonHeader>
-          <IonToolbar color="primary">
+          <IonToolbar color={theme.darkMode ? "medium" : "primary"}>
             <IonTitle>Login</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent className="ion-padding">
+        <IonContent className="ion-padding"color={theme.darkMode ? "dark" : ""}>
           <IonGrid className="ion-margin-top">
             <IonRow>
               <IonCol>
-                <IonItem>
+                <IonItem color={theme.darkMode ? "dark" : ""}>
                   <IonLabel position="floating">Phone Number</IonLabel>
                   <IonInput type="number" ref={phoneRef} />
                 </IonItem>
@@ -91,7 +92,7 @@ const Login = () => {
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonItem>
+                <IonItem color={theme.darkMode ? "dark" : ""}>
                   <IonLabel position="floating">Password</IonLabel>
                   <IonInput type="password" ref={passwordRef} />
                 </IonItem>
@@ -103,6 +104,7 @@ const Login = () => {
                   className="ion-margin-top"
                   expand="block"
                   onClick={onLoginClick}
+                  color={theme.darkMode ? "medium" : ""}
                 >
                   Login
                 </IonButton>

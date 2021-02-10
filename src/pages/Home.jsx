@@ -22,6 +22,7 @@ import firebase from "../supports/firebase";
 
 const Home = () => {
   const user = useSelector((state) => state.userReducer);
+  const theme = useSelector(state => state.theme)
 
   const [getData, setGetData] = useState({});
   const [errorMsg, setErrorMsg] = useState();
@@ -46,7 +47,7 @@ const Home = () => {
   const renderPost = () => {
     var posts = Object.keys(getData).map((key, i) => {
       return (
-        <IonCard>
+        <IonCard color={theme.darkMode ? "medium" : ""}>
           <center>
             <IonImg src={getData[key].imageUrl} style={{ width: "300px" }} />
           </center>
@@ -58,15 +59,15 @@ const Home = () => {
             <IonLabel>
               Victim of Covid-19
             </IonLabel>
-            <IonItem>
+            <IonItem color={theme.darkMode ? "medium" : ""}>
               <IonLabel slot='start'>Age</IonLabel>
               <IonText>{getData[key].age}</IonText>
             </IonItem>
-            <IonItem>
+            <IonItem color={theme.darkMode ? "medium" : ""}>
               <IonLabel slot='start'>Address</IonLabel>
               <IonText>{getData[key].address}</IonText>
             </IonItem>
-            <IonItem>
+            <IonItem color={theme.darkMode ? "medium" : ""}>
               <IonLabel slot='start'>Location</IonLabel>
               <IonText>{getData[key].location}</IonText>
             </IonItem>
@@ -89,11 +90,11 @@ const Home = () => {
       />
       <IonApp>
         <IonHeader>
-          <IonToolbar color="primary">
+          <IonToolbar color={theme.darkMode ? "medium" : "primary"}>
             <IonTitle>Hi, {user.fullName}</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent>{renderPost()}</IonContent>
+        <IonContent color={theme.darkMode ? "dark" : "light"}>{renderPost()}</IonContent>
       </IonApp>
     </React.Fragment>
   );
